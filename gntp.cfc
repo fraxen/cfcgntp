@@ -7,13 +7,12 @@ Licensed under the Apache License, Version v2.0
 http://www.apache.org/licenses/LICENSE-2.0
 
 */
-/* global component,output */
 component output='false' {
 	gc = '';
 	app = '';
 	ntype = '';
 
-	public any function init(required string host, required string application, required string icon) {
+	public any function init(string host='localhost', string application='#APPLICATION.applicationname#', string icon='') {
 		variables.gc = createObject('java', 'net.sf.libgrowl.GrowlConnector').init(ARGUMENTS.host);
 		variables.app = createObject('java', 'net.sf.libgrowl.Application').init(ARGUMENTS.application, ARGUMENTS.icon);
 		variables.ntype = createObject('java', 'net.sf.libgrowl.NotificationType').init('message');
