@@ -47,3 +47,6 @@ For _notify()_ the **title** and **message** arguments are mandatory, the rest a
 
 ## Notes
 There is currently no exception and error handling, but I guess errors from libgrowl should propagate.
+
+## License
+This repository and all contents are licensed under the Apache 2 license, see the **[license file](https://github.com/fraxen/cfcgntp/blob/master/LICENSE)** for full details.
