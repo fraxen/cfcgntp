@@ -1,3 +1,4 @@
+<cfscript>
 /*
 
 Is designed to run as a singleton
@@ -12,15 +13,16 @@ component output='false' {
 	app = '';
 	ntype = '';
 
-	public any function init(string host='localhost', string application='#APPLICATION.applicationname#', string icon='') {
-		variables.gc = createObject('java', 'net.sf.libgrowl.GrowlConnector').init(ARGUMENTS.host);
+	public any function init(string host='localhost', string password='', string application='#APPLICATION.applicationname#', any icon=javaCast( "null", 0 ), numeric port=23053) {
+		variables.gc = createObject('java', 'net.sf.libgrowl.GrowlConnector').init(ARGUMENTS.host, ARGUMENTS.port);
 		variables.app = createObject('java', 'net.sf.libgrowl.Application').init(ARGUMENTS.application, ARGUMENTS.icon);
 		variables.ntype = createObject('java', 'net.sf.libgrowl.NotificationType').init('message');
+		variables.gc.setPassword(ARGUMENTS.password);
 		variables.gc.register(variables.app, [variables.ntype]);
 		return this;
 	}
 
-	public void function notify(required string title, required string message, string icon='', number priority=0, boolean sticky=false) {
+	public void function notify(required string title, required string message, any icon=javaCast( "null", 0 ), number priority=0, boolean sticky=false) {
 		var note = createObject('java', 'net.sf.libgrowl.Notification').init(variables.app, variables.ntype, ARGUMENTS.Title, ARGUMENTS.message);
 		note.setPriority(ARGUMENTS.priority);
 		note.setSticky(ARGUMENTS.sticky);
@@ -30,4 +32,4 @@ component output='false' {
 		variables.gc.notify(note);
 	}
 }
-// vim:ft=javascript
+</cfscript>
