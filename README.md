@@ -18,16 +18,17 @@ What would you use this for?
 
 ## Installation
 0. Clone this repository somewhere accessible as a CFC, under your web root or in a Custom Tag path etc.
-1. Download the libgrowl http://sourceforge.net/projects/libgrowl/ java library and put that in a path where your cfml-engine can access the library, that would likely be a _lib_ folder in the servlet container or similar.
+1. Download and build the libgrowl https://github.com/sbower/libgrowl java library and put that in a path where your cfml-engine can access the library, that would likely be a _lib_ folder in the servlet container or similar.
 2. Now you can create an instance of the cfc in your files, and call the _notify()_ method to send messages
+(might work with http://sourceforge.net/projects/libgrowl/ as well, but I switched out the libraries now, the sourceforge one doesn't allow for network notifications)
 
 ## Usage
 First initialize and instantiate the object:
 ```javascript
-gntp = createObject('gntp').init(
-    'localhost',
-    'MyApplication',
-    'https://raw.githubusercontent.com/fraxen/cfcgntp/master/gntp.png'
+gntp = new gntp(
+    host='localhost',
+    application='MyApplication',
+    icon='https://raw.githubusercontent.com/fraxen/cfcgntp/master/gntp.png'
 );
 gntp.notify('Title of message', 'A little test message');
 gntp.notify('Da title', 'Another message');
@@ -35,8 +36,10 @@ gntp.notify('Da title', 'Another message');
 
 All arguments to _init()_ are optional:
 * **hostname**, hostname of the growl server _defaults to localhost_
+* **pasword**, for network notifications
 * **Application name**, the name of the application _defaults to APPLICATION.ApplicationName_
 * **icon**, optional url or file reference to a icon image file _defaults to a default icon_
+* **port**, defaults to 23053
 
 For _notify()_ the **title** and **message** arguments are mandatory, the rest are optional:
 * **title**, title of the notification _required_
@@ -47,6 +50,7 @@ For _notify()_ the **title** and **message** arguments are mandatory, the rest a
 
 ## Notes
 There is currently no exception and error handling, but I guess errors from libgrowl should propagate.
+Icons - I haven't gotten it to work with the new library, for anything but URL:s to icons, it might need some tweaking...
 
 ## License
 This repository and all contents are licensed under the Apache 2 license, see the **[license file](https://github.com/fraxen/cfcgntp/blob/master/LICENSE)** for full details.
