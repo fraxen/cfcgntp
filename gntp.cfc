@@ -17,7 +17,10 @@ component output='false' {
 		variables.gc = createObject('java', 'net.sf.libgrowl.GrowlConnector').init(ARGUMENTS.host, ARGUMENTS.port);
 		variables.app = createObject('java', 'net.sf.libgrowl.Application').init(ARGUMENTS.application, ARGUMENTS.icon);
 		variables.ntype = createObject('java', 'net.sf.libgrowl.NotificationType').init('message');
-		variables.gc.setPassword(ARGUMENTS.password);
+		try {
+			variables.gc.setPassword(ARGUMENTS.password);
+		}
+		catch(any e) {}
 		variables.gc.register(variables.app, [variables.ntype]);
 		return this;
 	}
